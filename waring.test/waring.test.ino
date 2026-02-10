@@ -1,33 +1,27 @@
-#include <Servo.h>
+int AA = 6;               //모터A의 A를 6번 핀에 배치
+int AB = 7;               //모터A의 B를 7번 핀에 배치
 
-Servo myservo;  // create servo object to control a servo
+void setup() 
+{
+  pinMode(AA, OUTPUT);
+  pinMode(AB, OUTPUT);
 
-int potpin = A3;  // analog pin used to connect the potentiometer
-int val;    // variable to read the value from the analog pin
-int LEDPIN = 11;
-int LEDSPIN =12;
-
-void setup() {
-  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
-  pinMode(LEDPIN,OUTPUT );
-  pinMode(LEDSPIN,OUTPUT );
-  Serial.begin(9600);
 }
-
-void loop() {
-  val = analogRead(potpin);            // reads the value of the potentiometer (value between 0 and 1023)
-  val = map(val, 0, 1023, 0, 180); 
-  if(val<30||val>150){
-    digitalWrite(LEDPIN, HIGH);
-    
-    digitalWrite(LEDSPIN, LOW);
-  }else{
-    digitalWrite(LEDPIN, LOW);
-    
-    digitalWrite(LEDSPIN, HIGH);
-  }    // scale it to use it with the servo (value between 0 and 180)
+ 
+void loop() 
+{
+  digitalWrite(AA, HIGH);          //모터A를 정회전
+  digitalWrite(AB, LOW);
+  delay(1000);                     
+ 
+  digitalWrite(AA, LOW);           //모터A를 정지
+  digitalWrite(AB, LOW);
+  delay(250);
   
-  myservo.write(val);                  // sets the servo position according to the scaled value
-  Serial.println(val);
-  delay(15);                           // waits for the servo to get there
+  digitalWrite(AA, LOW);           //모터A를 역회전     
+  digitalWrite(AB, HIGH);
+  delay(1000);
+
+
+
 }
